@@ -3,9 +3,9 @@ from model import Evaluate
 
 evaluator = Evaluate()
 
-st.title("Bible Verse Search")
-st.markdown('built by [@shreydan](https://github.com/shreydan)')
-st.markdown("### Praise the Lord.")
+st.title("Holy Verse Search")
+#st.markdown('built by [@shreydan](https://github.com/shreydan)')
+#st.markdown("### Praise the Lord.")
 st.markdown("##### Please type the text you recall from the verse to get references.")
 
 
