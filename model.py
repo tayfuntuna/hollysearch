@@ -11,8 +11,10 @@ class Evaluate:
         self.model_path = Path('./model/EncoderModel')
         self._dataset_path = Path('./dataset')
         self.embeddings_path = self._dataset_path / 'verse_embeddings.pkl'
+        self.embeddings_path2 = self._dataset_path / 'embeds.pickle.npy'
         self.bible_path = self._dataset_path / 'kjv_bible.csv'
-
+        self.qr_path = self._dataset_path / 'qe.csv'
+        self.input_embeddings = ''
         try:
             self._get_bible()
             self._get_embeddings()
@@ -27,9 +29,17 @@ class Evaluate:
         embeddings:np.ndarray = data['embeddings']
         
         self.embeddings = embeddings
+        
+        with open(self.embeddings_path2,'rb') as f:
+            data:dict = pickle.load(f)
+
+        embeddings2:np.ndarray = data
+        
+        self.embeddings2 = embeddings2
 
     def _get_bible(self):
         self.bible = pd.read_csv(self.bible_path)
+        self.qr = pd.read_csv(self.qr_path)
 
     def _prepare_model(self):
         self.model:SentenceTransformer = SentenceTransformer(str(self.model_path))
@@ -38,10 +48,11 @@ class Evaluate:
     def _evaluate(self,text):
         text_embeddings = self.model.encode([text])
         return text_embeddings
-
+    def get_embed(self,text):
+        self.input_embeddings = self._evaluate(text)
     def get_verses(self,text,top=10):
-        text_embeddings = self._evaluate(text)
-        similarities = cosine_similarity(self.embeddings, text_embeddings)
+        get_embed(self,text)
+        similarities = cosine_similarity(self.embeddings, self.input_embeddings)
         similarities = similarities.reshape(-1)
         
         indices = similarities.argsort()
@@ -51,5 +62,19 @@ class Evaluate:
         response = {
             'reference': verses.loc[:,'reference'].tolist(),
             'verse': verses.loc[:,'text'].tolist()
+        }
+        return response
+    
+    def get_verses2(self,text, text_embeddings, top=10):
+        similarities = cosine_similarity(self.embeddings,  self.input_embeddings)
+        similarities = similarities.reshape(-1)
+        
+        indices = similarities.argsort()
+        top_indices = [idx for idx in indices][::-1][:top]
+
+        verses = self.qe.iloc[top_indices,:]
+        response = {
+            'reference': verses.loc[:,'Name'].tolist(),
+            'verse': verses.loc[:,'Verse'].tolist()
         }
         return response
