@@ -69,7 +69,7 @@ class Evaluate:
         indices = similarities.argsort()
         top_indices = [idx for idx in indices][::-1][:top]
 
-        verses = self.qe.iloc[top_indices,:]
+        verses = self.qr.iloc[top_indices,:]
         response = {
             'reference': verses.loc[:,'Name'].tolist(),
             'verse': verses.loc[:,'Verse'].tolist(),
