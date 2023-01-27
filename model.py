@@ -62,7 +62,7 @@ class Evaluate:
         }
         return response
     
-    def get_verses2(self,text, text_embeddings, top=10):
+    def get_verses2(self,text, top=10):
         similarities = cosine_similarity(self.embeddings,  self.input_embeddings)
         similarities = similarities.reshape(-1)
         
