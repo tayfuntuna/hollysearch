@@ -30,10 +30,7 @@ class Evaluate:
         
         self.embeddings = embeddings
         
-        with open(self.embeddings_path2,'rb') as f:
-            data:dict = pickle.load(f)
-
-        embeddings2:np.ndarray = data
+        embeddings2:np.ndarray = np.load(self.embeddings_path2, allow_pickle=True)
         
         self.embeddings2 = embeddings2
 
