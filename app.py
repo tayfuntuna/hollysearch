@@ -40,14 +40,17 @@ if len(text_input) != 0 or submitted:
     verses2 = response2['verse']
     st.markdown('#### here are the verses...\n___')
 
-    for ver, ref in zip(verses,references):
+    for a, b in zip((verses,references), (verses2,references2)):
         with st.container():
             md = f"""
-            ##### {ver}
-            {ref}
+            ##### {a[0]}
+            {a[1]}
+            {b[0]}
+            {b[1]}
             ___
             """
             st.markdown(md)
+    
     for ver, ref in zip(verses2,references2):
         with st.container():
             md = f"""
