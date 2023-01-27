@@ -43,19 +43,16 @@ if len(text_input) != 0 or submitted:
     for a, b in zip((verses,references), (verses2,references2)):
         with st.container():
             md = f"""
+            -----
+            
             ##### {a[0]}
             {a[1]}
-            {b[0]}
+            
+            -----
+            
+            ##### {b[0]}
             {b[1]}
-            ___
-            """
-            st.markdown(md)
-    
-    for ver, ref in zip(verses2,references2):
-        with st.container():
-            md = f"""
-            ##### {ver}
-            {ref}
-            ___
+            
+            -----
             """
             st.markdown(md)
