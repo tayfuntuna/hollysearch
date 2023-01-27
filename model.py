@@ -48,7 +48,7 @@ class Evaluate:
     def _get_embed(self,text):
         self.input_embeddings = self._evaluate(text)
     def get_verses(self,text,top=10):
-        self._get_embed(self,text)
+        self._get_embed(text)
         similarities = cosine_similarity(self.embeddings, self.input_embeddings)
         similarities = similarities.reshape(-1)
         
