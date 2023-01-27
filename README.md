@@ -1,4 +1,4 @@
-# Bible Verse Search App
+# Holy Verse Search App
 
 ### [try the app here](https://bible-verse-search.streamlitapp.com/)
 
