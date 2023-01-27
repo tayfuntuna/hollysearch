@@ -45,10 +45,10 @@ class Evaluate:
     def _evaluate(self,text):
         text_embeddings = self.model.encode([text])
         return text_embeddings
-    def get_embed(self,text):
+    def _get_embed(self,text):
         self.input_embeddings = self._evaluate(text)
     def get_verses(self,text,top=10):
-        get_embed(self,text)
+        self._get_embed(self,text)
         similarities = cosine_similarity(self.embeddings, self.input_embeddings)
         similarities = similarities.reshape(-1)
         
@@ -72,6 +72,8 @@ class Evaluate:
         verses = self.qe.iloc[top_indices,:]
         response = {
             'reference': verses.loc[:,'Name'].tolist(),
-            'verse': verses.loc[:,'Verse'].tolist()
+            'verse': verses.loc[:,'Verse'].tolist(),
+            'surah': verses.loc[:,'Surah'].tolist(),
+            'ayat': verses.loc[:,'Ayat'].tolist(),
         }
         return response
