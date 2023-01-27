@@ -43,12 +43,11 @@ if len(text_input) != 0 or submitted:
     for i in range(limit):
         with st.container():
             md = f"""
-            ### ----------------------------------
-            
-            {verses[i]}({references[i]})
-            
             -----
-            {verses2[i]}({references2[i]})
+            
+            {verses[i]} ({references[i]})
+            
+            {verses2[i]} ({references2[i]})
             
             -----
             """
