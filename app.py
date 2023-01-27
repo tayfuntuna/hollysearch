@@ -39,8 +39,8 @@ if len(text_input) != 0 or submitted:
     references2 = response2['reference']
     verses2 = response2['verse']
     st.markdown('#### here are the verses...\n___')
-
-    for i in range(len(min(verses2,verses))):
+    limit = min(len(verses2),len(verses))
+    for i in range(limit):
         with st.container():
             md = f"""
             ### ----------------------------------
